@@ -1,0 +1,32 @@
+[tool.poetry]
+name = "les-24-drf"
+version = "0.1.0"
+description = ""
+authors = ["mikhapol_linux <mikhapol@bk.ru>"]
+readme = "README.md"
+packages = [{include = "les_24_drf"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+django = "^4.2.4"
+psycopg2-binary = "^2.9.7"
+pillow = "^10.0.0"
+ipython = "^8.14.0"
+python-dotenv = "^1.0.0"
+pytils = "^0.4.1"
+djangorestframework = "^3.14.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+#python = "^3.11"
+#django = "^4.2.3"
+#psycopg2-binary = "^2.9.6"
+#pillow = "^10.0.0"
+#ipython = "^8.14.0"
+#python-dotenv = "^1.0.0"
+#pytils = "^0.4.1"
+#redis = "^4.6.0"
+#django-crontab = "^0.7.1"
