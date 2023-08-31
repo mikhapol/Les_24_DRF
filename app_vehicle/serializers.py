@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from app_vehicle.models import Car
+from app_vehicle.models import Car, Moto
 
 
 class CarSerializers(serializers.ModelSerializer):
@@ -7,3 +7,8 @@ class CarSerializers(serializers.ModelSerializer):
         model = Car
         fields = '__all__'
 
+
+class MotoSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Moto
+        fields = '__all__'
