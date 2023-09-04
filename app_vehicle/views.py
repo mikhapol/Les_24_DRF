@@ -1,8 +1,11 @@
 from django.shortcuts import render
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import OrderingFilter
 from rest_framework import viewsets, generics
 
 from app_vehicle.models import Car, Moto, Milage
-from app_vehicle.serializers import CarSerializers, MotoSerializers, MilageSerializers, MotoMilageSerializers
+from app_vehicle.serializers import CarSerializers, MotoSerializers, MilageSerializers, MotoMilageSerializers, \
+    MotoCreateSerializers
 
 
 class CarViewSet(viewsets.ModelViewSet):
@@ -11,7 +14,8 @@ class CarViewSet(viewsets.ModelViewSet):
 
 
 class MotoCreateAPIView(generics.CreateAPIView):
-    serializer_class = MotoSerializers
+    # serializer_class = MotoSerializers
+    serializer_class = MotoCreateSerializers
 
 
 class MotoListAPIView(generics.ListAPIView):
@@ -40,3 +44,13 @@ class MilageCreateAPIView(generics.CreateAPIView):
 class MotoMilageListAPIView(generics.ListAPIView):
     queryset = Milage.objects.filter(moto__isnull=False)
     serializer_class = MotoMilageSerializers
+
+
+# Фильтрация
+class MilageListAPIView(generics.ListAPIView):
+    serializer_class = MilageSerializers
+    queryset = Milage.objects.all()
+    # filter_backends = [DjangoFilterBackend] # Бэкенд для обработки фильтра без сортировки
+    filter_backends = [DjangoFilterBackend, OrderingFilter]  # Бэкенд для обработки фильтра с сортировкой
+    filterset_fields = ('car', 'moto')  # Набор полей для фильтрации
+    ordering_fields = ('year',)
