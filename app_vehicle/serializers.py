@@ -17,7 +17,7 @@ class CarSerializers(serializers.ModelSerializer):
     # Второй подход
     last_milage = serializers.SerializerMethodField()
     # milage = MilageSerializers(source='milage_set', many=True)
-    milage = MilageSerializers(source='milage_set', many=True)
+    milage = MilageSerializers(source='milage_set', many=True, read_only=True)
 
     class Meta:
         model = Car
