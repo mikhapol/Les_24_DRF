@@ -5,6 +5,7 @@ from rest_framework import viewsets, generics
 from rest_framework.permissions import IsAuthenticated
 
 from app_vehicle.models import Car, Moto, Milage
+from app_vehicle.paginators import VehiclePaginator
 from app_vehicle.permission import IsOwnerOrStaff
 from app_vehicle.serializers import CarSerializers, MotoSerializers, MilageSerializers, MotoMilageSerializers, \
     MotoCreateSerializers
@@ -27,10 +28,10 @@ class MotoCreateAPIView(generics.CreateAPIView):
         new_moto.save()
 
 
-
 class MotoListAPIView(generics.ListAPIView):
     serializer_class = MotoSerializers
     queryset = Moto.objects.all()
+    pagination_class = VehiclePaginator
 
 
 class MotoRetrieveAPIView(generics.RetrieveAPIView):
