@@ -9,6 +9,7 @@ from app_vehicle.paginators import VehiclePaginator
 from app_vehicle.permission import IsOwnerOrStaff
 from app_vehicle.serializers import CarSerializers, MotoSerializers, MilageSerializers, MotoMilageSerializers, \
     MotoCreateSerializers
+from app_vehicle.tasks import check_milage
 
 
 class CarViewSet(viewsets.ModelViewSet):
@@ -59,6 +60,13 @@ class MotoDestroyAPIView(generics.DestroyAPIView):
 class MilageCreateAPIView(generics.CreateAPIView):
     """Пробег создание"""
     serializer_class = MilageSerializers
+
+    def perform_create(self, serializer):
+        new_milage = serializer.save()
+        if new_milage.car:
+            check_milage.delay(new_milage.car_id, 'Car')
+        else:
+            check_milage.delay(new_milage.moto_id, 'Moto')
 
 
 class MotoMilageListAPIView(generics.ListAPIView):

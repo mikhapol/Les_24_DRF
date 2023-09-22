@@ -57,6 +57,7 @@ INSTALLED_APPS = [
 
     'drf_yasg',
     'corsheaders',
+    'django_celery_beat',
 
     'app_users.apps.AppUsersConfig',
     'app_vehicle.apps.AppVehicleConfig',
@@ -188,4 +189,7 @@ CSRF_TRUSTED_ORIGINS = [
 
 CUR_API_URL = get_env_value('CUR_API_URL')
 CUR_API_KEY = get_env_value('CUR_API_KEY')
+
+CELERY_BROKER_URL = "redis://127.0.0.1:6379/0"
+CELERY_RESULT_BACKEND = "redis://127.0.0.1:6379/0"
 
